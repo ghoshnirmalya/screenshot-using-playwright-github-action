@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/ghoshnirmalya/playwright-github-action-test#readme",
   "dependencies": {
+    "form-data": "^3.0.0",
+    "node-fetch": "^2.6.0",
     "playwright": "^1.1.1"
   }
 }
