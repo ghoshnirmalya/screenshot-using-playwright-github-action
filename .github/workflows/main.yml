@@ -26,5 +26,5 @@ jobs:
     - name: Generate screenshots
       run: yarn install && node index.js
       env:
-        IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
+        IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
 
