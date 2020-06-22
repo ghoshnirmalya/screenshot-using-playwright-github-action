@@ -1,0 +1,6 @@
+name: 'Screenshots using ImageKit and FaunaDB'
+description: 'Generate screenshots of urls and store them using ImageKit and FaunaDB.'
+author: 'Nirmalya Ghosh'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

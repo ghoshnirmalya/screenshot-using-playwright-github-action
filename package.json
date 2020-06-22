@@ -1,27 +1,49 @@
 {
-  "name": "playwright-github-action-test",
+  "name": "screenshot-using-playwright-action",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "Generate screenshots of urls and store them using ImageKit and FaunaDB.",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "format": "prettier --write src/**/*.ts",
+    "format-check": "prettier --check src/**/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest",
+    "all": "npm run build && npm run format && npm run lint && npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ghoshnirmalya/playwright-github-action-test.git"
+    "url": "git+https://github.com/actions/typescript-action.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "author": "Nirmalya Ghosh (nirmalya.email@gmail.com)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ghoshnirmalya/playwright-github-action-test/issues"
-  },
-  "homepage": "https://github.com/ghoshnirmalya/playwright-github-action-test#readme",
   "dependencies": {
+    "@actions/core": "^1.2.4",
     "dotenv": "^8.2.0",
     "faunadb": "^2.14.2",
     "form-data": "^3.0.0",
     "node-fetch": "^2.6.0",
     "playwright": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "@types/node": "^14.0.13",
+    "@typescript-eslint/parser": "^3.4.0",
+    "eslint": "^7.3.0",
+    "eslint-plugin-github": "^4.0.1",
+    "eslint-plugin-jest": "^23.16.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.0.1",
+    "jest-circus": "^26.0.1",
+    "js-yaml": "^3.14.0",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.5"
   }
 }
