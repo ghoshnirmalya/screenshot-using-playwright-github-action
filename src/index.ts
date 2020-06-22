@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const launchPlaywright = require('./lib/launch-playwright')
+import launchPlaywright from './lib/launch-playwright'
 ;(async () => {
   await launchPlaywright(
     'chromium',

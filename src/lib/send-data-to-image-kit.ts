@@ -1,6 +1,7 @@
-const FormData = require("form-data")
+import FormData from "form-data"
+import sendDataToFaunaDB from "./send-data-to-fauna-db"
+
 const fetch = require("node-fetch")
-const sendDataToFaunaDB = require("./send-data-to-fauna-db")
 
 if (!globalThis.fetch) {
   globalThis.fetch = fetch

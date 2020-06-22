@@ -1,7 +1,8 @@
-const playwright = require("playwright")
-const sendDataToImageKit = require("./send-data-to-image-kit")
+import sendDataToImageKit from "./send-data-to-image-kit"
 
-const launchPlaywright = async (name: string, args: string, url: string) => {
+const playwright = require("playwright")
+
+const launchPlaywright = async (name: string, args: string[], url: string) => {
   const browser = await playwright[name].launch({ args })
   const page = await browser.newPage()
 
@@ -10,7 +11,7 @@ const launchPlaywright = async (name: string, args: string, url: string) => {
   const buffer = await page.screenshot()
   const image = buffer.toString("base64")
 
-  sendDataToImageKit(image, url, name)
+  await sendDataToImageKit(image, url, name)
 
   await browser.close()
 }
