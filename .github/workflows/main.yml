@@ -23,8 +23,11 @@ jobs:
     - uses: actions/checkout@v2
     - uses: microsoft/playwright-github-action@v1
 
+    - name: Install dependencies
+      run: yarn install --production
+
     - name: Generate screenshots
-      run: yarn install --production && node dist/index.js
+      run: node dist/index.js
       env:
         IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
         FAUNADB_SECRET_KEY: ${{ secrets.FAUNADB_SECRET_KEY }}
