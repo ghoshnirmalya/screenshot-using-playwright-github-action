@@ -1,12 +1,20 @@
+require("dotenv").config();
+
 const playwright = require("playwright");
 const FormData = require("form-data");
 const fetch = require("node-fetch");
+const faunadb = require("faunadb");
 
 if (!globalThis.fetch) {
   globalThis.fetch = fetch;
 }
 
 async function run(name, args, url) {
+  q = faunadb.query;
+  const client = new faunadb.Client({
+    secret: process.env.FAUNADB_SECRET_KEY,
+  });
+
   const browser = await playwright[name].launch({ args });
   const page = await browser.newPage();
 
@@ -30,7 +38,9 @@ async function run(name, args, url) {
 
   fetch("https://upload.imagekit.io/api/v1/files/upload", requestOptions)
     .then((response) => response.json())
-    .then((result) => console.log(result))
+    .then((result) => {
+      client.query(q.Create(q.Collection("screenshots"), { data: result }));
+    })
     .catch((error) => console.log("error", error));
 
   await browser.close();
