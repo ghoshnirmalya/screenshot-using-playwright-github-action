@@ -24,7 +24,7 @@ jobs:
     - uses: microsoft/playwright-github-action@v1
 
     - name: Generate screenshots
-      run: yarn install && node index.js
+      run: yarn install --production && node dist/index.js
       env:
         IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
         FAUNADB_SECRET_KEY: ${{ secrets.FAUNADB_SECRET_KEY }}
