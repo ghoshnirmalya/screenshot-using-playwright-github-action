@@ -15,7 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require('dotenv').config();
 const launch_playwright_1 = __importDefault(require("./lib/launch-playwright"));
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    yield launch_playwright_1.default('chromium', ['--no-sandbox'], 'http://whatsmyuseragent.org/');
-    yield launch_playwright_1.default('webkit', [], 'http://whatsmyuseragent.org/');
-    yield launch_playwright_1.default('firefox', [], 'http://whatsmyuseragent.org/');
+    const urlsString = process.argv[2];
+    const urlsArray = JSON.parse(urlsString);
+    urlsArray.map((url) => __awaiter(void 0, void 0, void 0, function* () {
+        yield launch_playwright_1.default('webkit', [], url);
+        yield launch_playwright_1.default('firefox', [], url);
+        yield launch_playwright_1.default('chromium', [], url);
+    }));
 }))();
