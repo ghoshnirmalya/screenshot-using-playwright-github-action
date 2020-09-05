@@ -27,8 +27,10 @@ jobs:
       run: yarn install --production
 
     - name: Generate screenshots
-      run: node dist/index.js
+      run: node node_modules/gh-playwright-action/dist/index.js
       env:
         IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
+        IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
+        IMAGEKIT_URL_ENDPOINT: ${{ secrets.IMAGEKIT_URL_ENDPOINT }}
         FAUNADB_SECRET_KEY: ${{ secrets.FAUNADB_SECRET_KEY }}
 

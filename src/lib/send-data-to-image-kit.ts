@@ -1,33 +1,27 @@
 import FormData from "form-data"
 import sendDataToFaunaDB from "./send-data-to-fauna-db"
+import ImageKit from"imagekit";
 
-const fetch = require("node-fetch")
 
-if (!globalThis.fetch) {
-  globalThis.fetch = fetch
-}
+const imagekitClient = new ImageKit({
+  publicKey : process.env.IMAGEKIT_PUBLIC_KEY || "",
+  privateKey : process.env.IMAGEKIT_PRIVATE_KEY || "",
+  urlEndpoint : process.env.IMAGEKIT_URL_ENDPOINT || ""
+});
+
 
 const sendDataToImageKit = async (image: string, url: string, name: string) => {
-  const formdata = new FormData()
-
-  formdata.append("file", image)
-  formdata.append("fileName", `${url}-${name}`)
-
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${process.env.IMAGEKIT_PRIVATE_KEY}`,
-    },
-    body: formdata,
-    redirect: "follow",
-  }
 
   try {
-    const response = await fetch(
-      "https://upload.imagekit.io/api/v1/files/upload",
-      requestOptions
-    )
-    const data = await response.json()
+
+    const data = await imagekitClient.upload({
+      file :image, //required
+      fileName : `${url}-${name}`,   //required
+  })
+
+
+
+
 
     sendDataToFaunaDB(data)
   } catch (error) {
