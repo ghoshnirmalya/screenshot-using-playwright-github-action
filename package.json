@@ -1,12 +1,12 @@
 {
   "name": "screenshot-using-playwright-action",
+  "version": "0.0.1",
   "description": "Generate screenshots of urls using Playwright.",
   "author": "nirmalya.email@gmail.com",
   "license": "MIT",
-  "version": "0.0.1",
-  "main": "dist/index.js",
   "scripts": {
     "type-check": "tsc",
+    "dev": "microbundle watch --no-compress --format cjs,es",
     "lint": "prettier --write 'src/**/*.{js,json,css,md,tsx,ts,yml}'"
   },
   "dependencies": {
@@ -20,7 +20,8 @@
     "@prisma/cli": "^2.6.2",
     "husky": "^4.2.5",
     "lint-staged": "^10.3.0",
-    "prettier": "^2.1.1"
+    "prettier": "^2.1.1",
+    "microbundle": "^0.12.3"
   },
   "husky": {
     "hooks": {
@@ -31,5 +32,9 @@
     "*.{js,json,css,md,tsx,ts}": [
       "prettier --write"
     ]
-  }
+  },
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts"
 }

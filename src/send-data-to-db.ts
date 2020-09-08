@@ -6,6 +6,8 @@ const sendDataToDB = async (
   page: { id: string; url: string },
   browserType: string
 ) => {
+  console.log(`========== Sending data to DB for ${browserType} ==========`);
+
   const screenshot = await prisma.screenshot.create({
     data: {
       image,
@@ -14,6 +16,8 @@ const sendDataToDB = async (
       },
     },
   });
+
+  console.log(`========== /Sending data to DB for ${browserType} ==========`);
 
   return {
     screenshot,

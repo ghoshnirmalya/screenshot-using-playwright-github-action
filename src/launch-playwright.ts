@@ -7,6 +7,8 @@ const launchPlaywright = async (
   args: string[],
   page: { id: string; url: string }
 ) => {
+  console.log(`========== Running Playwright for ${browserType} ==========`);
+
   const browser = await playwright[browserType].launch({ args });
   const browserPage = await browser.newPage();
 
@@ -18,6 +20,8 @@ const launchPlaywright = async (
   await sendDataToDB(image, page, browserType);
 
   await browser.close();
+
+  console.log(`========== /Running Playwright for ${browserType} ==========`);
 };
 
 export default launchPlaywright;
