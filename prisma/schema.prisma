@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int    @default(autoincrement()) @id
+  email String
+}
+
+model Site {
+  id    String    @default(uuid()) @id
+  name String
+  pages Page[]
+}
+
+model Page {
+  id    String    @default(uuid()) @id
+  url String
+  site    Site     @relation(fields: [siteId], references: [id])
+  siteId String
+}
+
+model Screenshot {
+ id    String    @default(uuid()) @id
+ image String
+ page    Page     @relation(fields: [pageId], references: [id])
+ pageId String
+}

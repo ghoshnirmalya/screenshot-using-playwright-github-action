@@ -12,14 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config();
-const launch_playwright_1 = __importDefault(require("./lib/launch-playwright"));
-(() => __awaiter(void 0, void 0, void 0, function* () {
-    const urlsString = process.argv[2];
-    const urlsArray = JSON.parse(urlsString);
-    urlsArray.map((url) => __awaiter(void 0, void 0, void 0, function* () {
-        yield launch_playwright_1.default('webkit', [], url);
-        yield launch_playwright_1.default('firefox', [], url);
-        yield launch_playwright_1.default('chromium', [], url);
-    }));
-}))();
+const launch_playwright_1 = __importDefault(require("./launch-playwright"));
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const init = (siteId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const site = yield prisma.site.findOne({
+            where: {
+                id: siteId,
+            },
+            include: {
+                pages: true,
+            },
+        });
+        console.log(site);
+        site.pages.map((page) => __awaiter(void 0, void 0, void 0, function* () {
+            yield launch_playwright_1.default("webkit", [], page);
+            yield launch_playwright_1.default("firefox", [], page);
+            yield launch_playwright_1.default("chromium", [], page);
+        }));
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+init("a37d5b4d-befb-410a-b421-bfaa5d176ba4");

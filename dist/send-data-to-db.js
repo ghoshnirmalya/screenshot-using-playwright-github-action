@@ -8,19 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const send_data_to_image_kit_1 = __importDefault(require("./send-data-to-image-kit"));
-const playwright = require("playwright");
-const launchPlaywright = (name, args, url) => __awaiter(void 0, void 0, void 0, function* () {
-    const browser = yield playwright[name].launch({ args });
-    const page = yield browser.newPage();
-    yield page.goto(url);
-    const buffer = yield page.screenshot();
-    const image = buffer.toString("base64");
-    yield send_data_to_image_kit_1.default(image, url, name);
-    yield browser.close();
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const sendDataToDB = (image, page, browserType) => __awaiter(void 0, void 0, void 0, function* () {
+    const screenshot = yield prisma.screenshot.create({
+        data: {
+            image,
+            page: {
+                connect: { id: page.id },
+            },
+        },
+    });
+    return {
+        screenshot,
+    };
 });
-exports.default = launchPlaywright;
+exports.default = sendDataToDB;

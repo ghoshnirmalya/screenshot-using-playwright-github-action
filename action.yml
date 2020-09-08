@@ -1,5 +1,5 @@
-name: 'Screenshots using ImageKit and FaunaDB'
-description: 'Generate screenshots of urls and store them using ImageKit and FaunaDB.'
+name: 'Screenshots using Playwright'
+description: 'Generate screenshots of urls using Playwright.'
 author: 'Nirmalya Ghosh'
 runs:
   using: 'node12'

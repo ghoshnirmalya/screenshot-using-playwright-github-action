@@ -12,17 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const faunadb_1 = __importDefault(require("faunadb"));
-const faunadbClient = new faunadb_1.default.Client({
-    secret: process.env.FAUNADB_SECRET_KEY || "",
+const send_data_to_db_1 = __importDefault(require("./send-data-to-db"));
+const playwright = require("playwright");
+const launchPlaywright = (browserType, args, page) => __awaiter(void 0, void 0, void 0, function* () {
+    const browser = yield playwright[browserType].launch({ args });
+    const browserPage = yield browser.newPage();
+    yield browserPage.goto(page.url);
+    const buffer = yield browserPage.screenshot();
+    const image = buffer.toString("base64");
+    yield send_data_to_db_1.default(image, page, browserType);
+    yield browser.close();
 });
-const sendDataToFaunaDB = (data, collectionName = "screenshots") => __awaiter(void 0, void 0, void 0, function* () {
-    const q = faunadb_1.default.query;
-    try {
-        yield faunadbClient.query(q.Create(q.Collection(collectionName), { data }));
-    }
-    catch (error) {
-        console.log("error", error);
-    }
-});
-exports.default = sendDataToFaunaDB;
+exports.default = launchPlaywright;
