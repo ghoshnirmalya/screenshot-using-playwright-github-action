@@ -10,7 +10,7 @@
     "lint": "prettier --write 'src/**/*.{js,json,css,md,tsx,ts,yml}'"
   },
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.9.1",
     "playwright": "^1.3.0",
     "@prisma/client": "^2.6.2"
   },
